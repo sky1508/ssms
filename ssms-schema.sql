@@ -2,18 +2,18 @@ CREATE USER 'ssms_admin'@'localhost' IDENTIFIED BY 'ssms@123';
 GRANT ALL ON `ssms`.* TO 'ssms_admin'@'localhost';
 
 CREATE TABLE `ssms`.`student` (
-  `student_id` INT NOT NULL,
+  `student_id` INT NOT NULL AUTO_INCREMENT,
   `student_name` VARCHAR(45) NOT NULL,
   `city` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`student_id`));
 
 CREATE TABLE `ssms`.`subject` (
-  `subject_id` INT NOT NULL,
+  `subject_id` INT NOT NULL AUTO_INCREMENT,
   `subject_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`subject_id`));
   
 CREATE TABLE `ssms`.`result` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `student_id` INT NULL,
   `subject_id` INT NULL,
   `marks` INT NULL,
