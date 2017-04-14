@@ -14,7 +14,7 @@ import com.ssms.util.LogPrinter;
 /**
  * Servlet implementation class AddStudent
  */
-@WebServlet("AddStudent")
+@WebServlet("/AddStudent")
 public class AddStudent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

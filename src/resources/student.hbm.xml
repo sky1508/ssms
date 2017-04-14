@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="com.ssms.entity.Student" table="STUDENT">
         <id name="id" type="int" column="STUDENT_ID">
-            <generator class="native"/>
+            <generator class="identity"/>
         </id>
         <property name="name">
             <column name="STUDENT_NAME"/>
