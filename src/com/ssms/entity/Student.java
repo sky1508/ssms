@@ -8,9 +8,6 @@ public class Student {
 	public int getStudentId() {
 		return id;
 	}
-	public void setStudentId(int id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
