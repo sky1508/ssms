@@ -1,7 +1,11 @@
 package com.ssms.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +17,16 @@ import com.ssms.entity.Student;
 import com.ssms.util.LogPrinter;
 
 /**
- * Servlet implementation class AddStudent
+ * Servlet implementation class ShowStudentList
  */
-@WebServlet("/AddStudent")
-public class AddStudent extends HttpServlet {
+@WebServlet("/Students")
+public class ShowStudentList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddStudent() {
+    public ShowStudentList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +36,24 @@ public class AddStudent extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		LogPrinter.printClassAndMethod();
 		
-		System.out.println("Add student servlet");
+		List<Student> studentList = StudentDAO.GetStudents();//new ArrayList<Student>();
 		
-		Student student = new Student();
-		student.setName(request.getParameter("name"));
-		student.setCity(request.getParameter("city"));
-		StudentDAO.AddStudent(student);
+		Student s = new Student();		
+		s.setId(2);
+		s.setName("Jaydeep");
+		s.setCity("Bengaluru");		
+		studentList.add(s);
+		
+		request.setAttribute("studentList", studentList);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/Students.jsp");
+		rd.forward(request, response);
+		
 		response.setContentType("text/html");
-		response.getWriter().write("Student Added");
+		PrintWriter out = response.getWriter();
 	}
 
 	/**
