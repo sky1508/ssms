@@ -41,12 +41,11 @@ public class ShowStudentList extends HttpServlet {
 		
 		List<Student> studentList = StudentDAO.GetStudents();//new ArrayList<Student>();
 		
-		Student s = new Student();		
-		s.setId(2);
-		s.setName("Jaydeep");
-		s.setCity("Bengaluru");		
-		studentList.add(s);
-		
+		/*Student s = new Student();
+			s.setId(2);
+			s.setName("Jaydeep");
+			s.setCity("Bengaluru");
+			studentList.add(s);*/
 		request.setAttribute("studentList", studentList);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/Students.jsp");

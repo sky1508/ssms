@@ -22,6 +22,7 @@
 				<td><c:out value ="${student.id}"/></td>
 				<td><c:out value ="${student.name}"/></td>
 				<td><c:out value ="${student.city}"/></td>
+				<td><a href="http://localhost:8080/SSMS/RemoveStudent?id=<c:out value ='${student.id}'/>">Remove</a></td>
 			</tr>
 			</c:forEach>
 		</tbody>

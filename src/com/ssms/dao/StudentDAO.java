@@ -19,6 +19,8 @@ public class StudentDAO {
         session.save(student);
         session.getTransaction().commit();
         session.close();
+        
+        return;
 	}
 	
 	public static List<Student> GetStudents() {
@@ -33,5 +35,20 @@ public class StudentDAO {
         session.close();
 		
 		return students;
+	}
+	
+	public static void RemoveStudent(int id) {
+		LogPrinter.printClassAndMethod();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();        
+        session.beginTransaction();        
+
+        Student toDelete = (Student) session.load(Student.class, id);
+        session.delete(toDelete);
+        
+        session.getTransaction().commit();
+        session.close();
+		
+		return;
 	}
 }
