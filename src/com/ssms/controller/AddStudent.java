@@ -39,7 +39,7 @@ public class AddStudent extends HttpServlet {
 		Student student = new Student();
 		student.setName(request.getParameter("name"));
 		student.setCity(request.getParameter("city"));
-		StudentDAO.AddStudent(student);
+		StudentDAO.addStudent(student);
 		response.setContentType("text/html");
 		response.getWriter().write("Student Added");
 	}

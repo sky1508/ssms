@@ -11,7 +11,7 @@ import com.ssms.util.HibernateUtil;
 import com.ssms.util.LogPrinter;
 
 public class StudentDAO {
-	public static void AddStudent(Student student){
+	public static void addStudent(Student student){
 		LogPrinter.printClassAndMethod();
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();        
@@ -23,7 +23,7 @@ public class StudentDAO {
         return;
 	}
 	
-	public static List<Student> GetStudents() {
+	public static List<Student> getStudents() {
 		LogPrinter.printClassAndMethod();
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();        
@@ -37,14 +37,45 @@ public class StudentDAO {
 		return students;
 	}
 	
-	public static void RemoveStudent(int id) {
+	public static Student getStudentById(int id) {
+		LogPrinter.printClassAndMethod();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();        
+        session.beginTransaction();        
+        
+        Student student = session.get(Student.class, id);
+        
+        session.getTransaction().commit();
+        session.close();
+		
+		return student;
+	}
+	
+	public static void removeStudent(int id) {
 		LogPrinter.printClassAndMethod();
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();        
         session.beginTransaction();        
 
-        Student toDelete = (Student) session.load(Student.class, id);
+        Student toDelete = (Student) session.get(Student.class, id);
         session.delete(toDelete);
+        
+        session.getTransaction().commit();
+        session.close();
+		
+		return;
+	}
+	
+	public static void updateStudent(Student s) {
+		LogPrinter.printClassAndMethod();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();        
+        session.beginTransaction();        
+
+        Student toUpdate = (Student) session.get(Student.class, s.getId());
+        toUpdate.setName(s.getName());
+        toUpdate.setCity(s.getCity());
+        session.update(toUpdate);
         
         session.getTransaction().commit();
         session.close();

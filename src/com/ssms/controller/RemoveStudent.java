@@ -1,11 +1,6 @@
 package com.ssms.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,20 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ssms.dao.StudentDAO;
-import com.ssms.entity.Student;
 import com.ssms.util.LogPrinter;
 
 /**
- * Servlet implementation class ShowStudentList
+ * Servlet implementation class RemoveStudent
  */
-@WebServlet("/Students")
-public class ShowStudentList extends HttpServlet {
+@WebServlet("/RemoveStudent")
+public class RemoveStudent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowStudentList() {
+    public RemoveStudent() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,21 +32,13 @@ public class ShowStudentList extends HttpServlet {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		LogPrinter.printClassAndMethod();
+		int id = Integer.parseInt(request.getParameter("id"));
+		System.out.println("Student id: "+id);
 		
-		List<Student> studentList = StudentDAO.getStudents();//new ArrayList<Student>();
-		
-		/*Student s = new Student();
-			s.setId(2);
-			s.setName("Jaydeep");
-			s.setCity("Bengaluru");
-			studentList.add(s);*/
-		request.setAttribute("studentList", studentList);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/Students.jsp");
-		rd.forward(request, response);
+		StudentDAO.removeStudent(id);
 		
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		response.getWriter().write("Student with id " + id + " deleted successfully");
 	}
 
 	/**

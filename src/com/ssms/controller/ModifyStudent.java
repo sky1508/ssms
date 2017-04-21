@@ -1,11 +1,6 @@
 package com.ssms.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,17 +11,19 @@ import com.ssms.dao.StudentDAO;
 import com.ssms.entity.Student;
 import com.ssms.util.LogPrinter;
 
+import sun.util.logging.resources.logging_pt_BR;
+
 /**
- * Servlet implementation class ShowStudentList
+ * Servlet implementation class ModifyServlet
  */
-@WebServlet("/Students")
-public class ShowStudentList extends HttpServlet {
+@WebServlet("/ModifyStudent")
+public class ModifyStudent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowStudentList() {
+    public ModifyStudent() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,20 +36,18 @@ public class ShowStudentList extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		LogPrinter.printClassAndMethod();
 		
-		List<Student> studentList = StudentDAO.getStudents();//new ArrayList<Student>();
+		int id = Integer.parseInt(request.getParameter("id"));
+		System.out.println("Student id: "+id);
 		
-		/*Student s = new Student();
-			s.setId(2);
-			s.setName("Jaydeep");
-			s.setCity("Bengaluru");
-			studentList.add(s);*/
-		request.setAttribute("studentList", studentList);
+		Student student = new Student();
+		student.setId(id);
+		student.setName(request.getParameter("name"));
+		student.setCity(request.getParameter("city"));
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/Students.jsp");
-		rd.forward(request, response);
+		StudentDAO.updateStudent(student);
 		
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		response.getWriter().write("Student with id " + id + " deleted successfully");
 	}
 
 	/**
